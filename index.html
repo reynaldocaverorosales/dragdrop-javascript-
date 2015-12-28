@@ -1,0 +1,85 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+<style>
+#div1 {width:700px;height:300px;padding:10px;border:1px solid #aaaaaa;}
+#caja{
+	width:700px;height:300px;padding:10px;border:1px solid #aaaaaa;
+}
+#caja  >img{
+
+	padding: 10px;
+}
+
+#div1  >img{
+
+	padding: 10px;
+}
+</style>
+<script>
+/*--tercera funcion en ejecutarse--*/
+function allowDrop(ev) {
+    ev.preventDefault();
+    
+}
+/*--primera funcion en ejecutarse--*/
+function drag(ev) {
+	/*--reconosco todas lasimagenes--*/
+	origen1=document.querySelectorAll('#caja > img');
+	for (var i = 0; i < origen1.length; i++) {
+		origen1[i].addEventListener('dragstart',arrastrado,false);
+	};
+	destino=document.getElementById('div1');
+
+
+	destino.addEventListener('dragenter',entrada,false);
+	destino.addEventListener('dragleave',saliendo,false);
+	destino.addEventListener('dragover',allowDrop,false);
+	destino.addEventListener('drop',drop,false);
+	
+   
+}
+/*--segunda funcion en ejecutarse--*/
+function arrastrado(ev){
+	/*--transfiero los datos--*/
+		ev.dataTransfer.setData("text", ev.target.id);
+		
+		
+	}
+
+/*se aplica cuando se ingresa al cajon cambia de color*/
+	function entrada (e){
+		e.preventDefault();
+		destino.style.background='rgba(0,150,0,.2)';
+	}
+/*se aplica cuando se sale al cajon cambia de color*/
+	function saliendo (e){
+		e.preventDefault();
+		destino.style.background='#FFFFFF';
+	}
+/*--cuarta funcion en ejecutarse--*/
+function drop(ev) {
+	/*--primera funcion en eecutarse--*/
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+    ev.target.appendChild(document.getElementById(data));
+    
+}
+
+window.addEventListener('load',drag,false);
+</script>
+</head>
+<body>
+<div id="div1" ></div>
+<br>
+<section id="caja">
+	<img id="drag1" src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcS4i8ufWg0wgI-70QqdnPE10fzyfM9xqWBUxpp2jJsEixC5NW8c" draggable="true"  width="100" height="120"/>
+<img id="drag2" src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcS4i8ufWg0wgI-70QqdnPE10fzyfM9xqWBUxpp2jJsEixC5NW8c" draggable="true"  width="100" height="120"/>
+<img id="drag3" src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcS4i8ufWg0wgI-70QqdnPE10fzyfM9xqWBUxpp2jJsEixC5NW8c" draggable="true"  width="100" height="120"/>
+
+</section>
+
+
+</body>
+</html>
